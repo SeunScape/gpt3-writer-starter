@@ -5,10 +5,13 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
-const basePromptPrefix = "";
+const basePromptPrefix = 
+`Write me the solution to this data structure and algorithm problem in JavaScript. 
+
+Question:`;
 const generateAction = async (req, res) => {
   // Run first prompt
-  console.log(`API: ${basePromptPrefix}${req.body.userInput}`)
+  console.log(`API: ${basePromptPrefix}${req.body.userInput}\n`)
 
   const baseCompletion = await openai.createCompletion({
     model: 'text-davinci-003',
