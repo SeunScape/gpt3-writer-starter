@@ -6,7 +6,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 const basePromptPrefix = 
-`Write me the solution to this data structure and algorithm problem in Python. 
+`Given a data structure and algorithm problem, write a Python solution to solve it.
 
 Question:`;
 const generateAction = async (req, res) => {

@@ -8,6 +8,9 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 const Home = () => {
   const [userInput, setUserInput] = useState('');
   const [userPyInput, setUserPyInput] = useState('');
+  const [userJavaInput, setUserJavaInput] = useState('');
+  const [userCInput, setUserCInput] = useState('');
+  const [userGoInput, setUserGoInput] = useState('');
   const [apiOutput, setApiOutput] = useState('')
 const [isGenerating, setIsGenerating] = useState(false)
 
@@ -60,6 +63,68 @@ const pythonGenerateEndpoint = async () => {
   setIsGenerating(false);
 }
 
+// C++ generate call
+const CGenerateEndpoint = async () => {
+  setIsGenerating(true);
+  
+  console.log("Calling OpenAI...")
+  const response = await fetch('/api/pygenerate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userCInput }),
+  });
+
+  const data = await response.json();
+  const { output } = data;
+  console.log("OpenAI replied...", output.text)
+
+  setApiOutput(`${output.text}`);
+  setIsGenerating(false);
+}
+
+// Java generate call
+const JavaGenerateEndpoint = async () => {
+  setIsGenerating(true);
+  
+  console.log("Calling OpenAI...")
+  const response = await fetch('/api/pygenerate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userJavaInput }),
+  });
+
+  const data = await response.json();
+  const { output } = data;
+  console.log("OpenAI replied...", output.text)
+
+  setApiOutput(`${output.text}`);
+  setIsGenerating(false);
+}
+
+// Go generate call
+const GoGenerateEndpoint = async () => {
+  setIsGenerating(true);
+  
+  console.log("Calling OpenAI...")
+  const response = await fetch('/api/pygenerate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userGoInput }),
+  });
+
+  const data = await response.json();
+  const { output } = data;
+  console.log("OpenAI replied...", output.text)
+
+  setApiOutput(`${output.text}`);
+  setIsGenerating(false);
+}
 // JS text area
   const onUserChangedText = (event) => {
     // console.log(event.target.value);
@@ -71,6 +136,21 @@ const pythonGenerateEndpoint = async () => {
     // console.log(event.target.value);
     setUserPyInput(event.target.value);
   };
+    // C++ text area
+    const onCChangedText = (event) => {
+      // console.log(event.target.value);
+      setUserCInput(event.target.value);
+    };
+     // Java text area
+     const onJavaChangedText = (event) => {
+      // console.log(event.target.value);
+      setUserJavaInput(event.target.value);
+    };
+      // Go text area
+      const onGoChangedText = (event) => {
+        // console.log(event.target.value);
+        setUserGoInput(event.target.value);
+      };
   return (
     <div className="root">
        <ChakraProvider>
@@ -91,6 +171,8 @@ const pythonGenerateEndpoint = async () => {
           <Tab>JavaScript</Tab>
           <Tab>Python</Tab>
           <Tab>C++</Tab>
+          <Tab>Java</Tab>
+          <Tab>Go</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -125,7 +207,6 @@ const pythonGenerateEndpoint = async () => {
         </div>
           </TabPanel>
           <TabPanel>
-            <div>tab 2</div>
           <div className="prompt-container">
           <textarea 
             className="prompt-box"
@@ -157,7 +238,97 @@ const pythonGenerateEndpoint = async () => {
         </div>
           </TabPanel>
           <TabPanel>
-            <p>three!</p>
+          <div className="prompt-container">
+          <textarea 
+            className="prompt-box"
+            placeholder="start typing here"
+            value={userCInput}
+            onChange={onCChangedText}
+          />
+          <div className="prompt-buttons">
+            <a className={isGenerating ? 'generate-button loading' : 'generate-button'} 
+            onClick={CGenerateEndpoint}
+            >
+              <div className="generate">
+                {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
+          </div>
+          </a>
+        </div>
+            {apiOutput && (
+            <div className="output">
+              <div className="output-header-container">
+                <div className="output-header">
+                  <h3>Output</h3>
+                </div>
+              </div>
+              <div className="output-content">
+                <p>{apiOutput}</p>
+              </div>
+            </div>
+          )}
+        </div>
+          </TabPanel>
+          <TabPanel>
+          <div className="prompt-container">
+          <textarea 
+            className="prompt-box"
+            placeholder="start typing here"
+            value={userJavaInput}
+            onChange={onJavaChangedText}
+          />
+          <div className="prompt-buttons">
+            <a className={isGenerating ? 'generate-button loading' : 'generate-button'} 
+            onClick={JavaGenerateEndpoint}
+            >
+              <div className="generate">
+                {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
+          </div>
+          </a>
+        </div>
+            {apiOutput && (
+            <div className="output">
+              <div className="output-header-container">
+                <div className="output-header">
+                  <h3>Output</h3>
+                </div>
+              </div>
+              <div className="output-content">
+                <p>{apiOutput}</p>
+              </div>
+            </div>
+          )}
+        </div>
+          </TabPanel>
+          <TabPanel>
+          <div className="prompt-container">
+          <textarea 
+            className="prompt-box"
+            placeholder="start typing here"
+            value={userGoInput}
+            onChange={onGoChangedText}
+          />
+          <div className="prompt-buttons">
+            <a className={isGenerating ? 'generate-button loading' : 'generate-button'} 
+            onClick={GoGenerateEndpoint}
+            >
+              <div className="generate">
+                {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
+          </div>
+          </a>
+        </div>
+            {apiOutput && (
+            <div className="output">
+              <div className="output-header-container">
+                <div className="output-header">
+                  <h3>Output</h3>
+                </div>
+              </div>
+              <div className="output-content">
+                <p>{apiOutput}</p>
+              </div>
+            </div>
+          )}
+        </div>
           </TabPanel>
       </TabPanels>
         </Tabs>

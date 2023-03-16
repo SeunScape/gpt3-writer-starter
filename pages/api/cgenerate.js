@@ -6,16 +6,16 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 const basePromptPrefix = 
-`Given a data structure and algorithm problem, write a JavaScript solution to solve it.
+`Given a data structure and algorithm problem, write a C++ solution to solve it. 
 
 Question:`;
 const generateAction = async (req, res) => {
   // Run first prompt
-  console.log(`API: ${basePromptPrefix}${req.body.userInput}\n`)
+  console.log(`API: ${basePromptPrefix}${req.body.userCInput}\n`)
 
   const baseCompletion = await openai.createCompletion({
     model: 'text-davinci-003',
-    prompt: `${basePromptPrefix}${req.body.userInput}`,
+    prompt: `${basePromptPrefix}${req.body.userCInput}`,
     temperature: 0.5,
     max_tokens: 500,
   });
