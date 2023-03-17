@@ -6,7 +6,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 const basePromptPrefix = 
-`Given a data structure and algorithm problem, write a C++ solution to solve it. 
+`I need a solution to a data structure and algorithm question in C++
 
 Question:`;
 const generateAction = async (req, res) => {

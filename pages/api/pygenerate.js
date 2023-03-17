@@ -6,7 +6,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 const basePromptPrefix = 
-`Given a data structure and algorithm problem, write a Python solution to solve it.
+`I need a solution to a data structure and algorithm question in Python
 
 Question:`;
 const generateAction = async (req, res) => {
@@ -16,7 +16,7 @@ const generateAction = async (req, res) => {
   const baseCompletion = await openai.createCompletion({
     model: 'text-davinci-003',
     prompt: `${basePromptPrefix}${req.body.userPyInput}`,
-    temperature: 0.5,
+    temperature: 0.6,
     max_tokens: 500,
   });
   

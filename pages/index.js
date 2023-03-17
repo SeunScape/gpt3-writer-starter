@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import buildspaceLogo from '../assets/buildspace-logo.png';
 import { useState } from 'react';
 import { ChakraProvider } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
@@ -152,22 +150,26 @@ const GoGenerateEndpoint = async () => {
         setUserGoInput(event.target.value);
       };
   return (
+    <>
+    <nav> 
+    <div className='nav-brand'>AlgoAssistant</div> 
+  </nav>
     <div className="root">
        <ChakraProvider>
       <Head>
-        <title>RixAI | Data structures Assistant</title>
+        <title>AlgoAssistant | Data structure & Algorithm Assistant</title>
       </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>RixAI</h1>
+            <h1> Find quick <span>solutions</span> to your Data structures and algorithms problems</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Use RixAI to ace your data structures and algorithms interviews effortlessly</h2>
+            <h2>Paste your questions below and get the solutions. If given a template for the solution, paste alongside the question.</h2>
           </div>
         </div>
         <Tabs colorScheme='green' onChange={onTabChange}>
-        <TabList>
+        <TabList style={{color:"white"}}>
           <Tab>JavaScript</Tab>
           <Tab>Python</Tab>
           <Tab>C++</Tab>
@@ -333,20 +335,9 @@ const GoGenerateEndpoint = async () => {
       </TabPanels>
         </Tabs>
       </div>
-      <div className="badge-container grow">
-        <a
-          href="https://buildspace.so/builds/ai-writer"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <div className="badge">
-            <Image src={buildspaceLogo} alt="buildspace logo" />
-            <p>build with buildspace</p>
-          </div>
-        </a>
-      </div>
       </ChakraProvider>
     </div>
+    </>
   );
 };
 
